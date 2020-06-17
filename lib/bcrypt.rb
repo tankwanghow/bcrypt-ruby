@@ -50,7 +50,7 @@ module BCrypt
           if RUBY_PLATFORM == "java"
             Java.bcrypt_jruby.BCrypt.hashpw(secret.to_s, salt.to_s)
           else
-            __bc_crypt(secret.to_s, salt)
+            __bc_crypt(secret.to_s, salt).gsub(/(\n|\x00).*/, '')
           end
         else
           raise Errors::InvalidSalt.new("invalid salt")
